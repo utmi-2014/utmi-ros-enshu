@@ -20,8 +20,8 @@ $ catkin_make install
 $ source ~/catkin_ws/ros-enshu/devel/setup.bash
 
 # run samples
-$ rosrun check3-1.l
-$ roseus check3-2.l
+$ rosrun ytk-check3-1.l
+$ roseus ytk-check3-2.l
 ```
 
 How to contribute to this repository
