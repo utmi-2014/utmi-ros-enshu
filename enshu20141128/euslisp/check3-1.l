@@ -3,7 +3,7 @@
 (ros::load-ros-manifest "roseus")
 (ros::load-ros-manifest "kobuki_msgs")
 
-(ros::roseus "check31")
+(ros::roseus "check3-1")
 
 ;; callback function
 (defun bumper-event-cb (bumper-event)
