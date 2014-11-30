@@ -1,4 +1,5 @@
 #!/usr/bin/env roseus
+;; Tennin Yan, Tomoya Yoshizawa, Kentaro Wada
 
 (ros::load-ros-manifest "roseus")
 
