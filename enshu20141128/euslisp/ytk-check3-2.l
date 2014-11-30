@@ -1,13 +1,9 @@
 #!/usr/bin/env roseus
-;; Tennin Yan, Tomoya Yoshizawa, Kentaro Wada
-;;;
-;;; euslisp version of ros_tutorials/rospy_tutorials/001_talker_listener
-;;;
+;; 15班 (Tennin Yan, Tomoya Yoshizawa, Kentaro Wada)
 
 (ros::load-ros-manifest "roseus")
 (ros::load-ros-manifest "kobuki_msgs")
 
-;;;
 (ros::roseus "make_sound")
 
 	(ros::advertise "/mobile_base/commands/sound" kobuki_msgs::Sound 1)
