@@ -15,20 +15,17 @@
   (dxl-armed-turtlebot-init)
   ;; reset pose
   (send *dxl-armed-turtlebot* :reset-pose)
-  (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 4000)
+  (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 3000)
   (send *ri* :wait-interpolation))
 
 ;; initialize step_x, y, z
-(setq step 10)
-(setq mode 0)
+(setq step 0.5)
+(setq x 0)
+(setq y 0)
+(setq z 0)
+(setq grasp-mode nil)
+;; callback function
 (defun joy-cb (msg)
-  (let (ll)
-    ;; initialize goal-endcoords
-    (setq goal-endcoords
-          (make-cascoords :pos (send (send *dxl-armed-turtlebot* :arm :end-coords :copy-worldcoords) :worldpos)))
-    (setq x 0)
-    (setq y 0)
-    (setq z 0)
     ;; joy stick input
     ; (format t "axis: ~a~%" (send msg :axes))
     ; (format t "button: ~a~%" (send msg :buttons))
@@ -39,29 +36,36 @@
             ((> -0.8 (elt (send msg :axes) 1)) (setq x -1))
             ((<  0.8 (elt (send msg :axes) 3)) (setq z 1))
             ((> -0.8 (elt (send msg :axes) 3)) (setq z -1))
-            (t nil)))
-    (format t "x,y,z: ~a~a~a~%" x y z)
-    (if (not (and (= x 0) (= y 0) (= z 0)))
-      (progn
-        ;; update goal-endcoords
-        (send goal-endcoords
-              :locate (float-vector (* step x) (* step y) (* step z)))
-        ;; move robot
-        (send *dxl-armed-turtlebot*
-              :inverse-kinematics goal-endcoords
-              :rotation-axis nil
-              :debug-view nil
-              :link-list ll)
-        (send *irtviewer* :objects (list *dxl-armed-turtlebot* goal-endcoords))
-        (send *irtviewer* :draw-objects)
-        (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 500)))))
+            (t (progn (setq x 0) (setq y 0) (setq z 0)))))
+    ; grasp
+    (cond ((= (elt (send msg :buttons) 13) 1) (send *ri* :start-grasp))
+          ((= (elt (send msg :buttons) 14) 1) (send *ri* :stop-grasp))
+          (t nil))
+    (format t "m:x,y,z: ~a~a~a~%" x y z))
 
 (init-robot)
-(ros::subscribe "/joy" sensor_msgs::Joy #'joy-cb)
+(ros::subscribe "/joy" sensor_msgs::joy #'joy-cb)
 
 (do-until-key
-  (setq x 0)
-  (setq y 0)
-  (setq z 0)
+  ;; initialize goal-endcoords
+  (setq goal-endcoords
+        (make-cascoords :pos (send (send *dxl-armed-turtlebot* :arm :end-coords :copy-worldcoords) :worldpos)))
   (ros::spin-once)
-  )
+  ;; update goal-endcoords
+  (format t "d:x,y,z: ~a~a~a~%" x y z)
+  ; (print (send goal-endcoords :worldpos))
+  ;; move arm
+  (if (not (and (= x 0) (= y 0) (= z 0)))
+    (progn
+      (send goal-endcoords
+            :locate (float-vector (* step x) (* step y) (* step z)))
+      ;; move robot
+      (send *dxl-armed-turtlebot*
+            :inverse-kinematics goal-endcoords
+            :rotation-axis nil
+            :debug-view nil
+            :link-list nil)
+      (send *irtviewer* :objects (list *dxl-armed-turtlebot* goal-endcoords))
+      (send *irtviewer* :draw-objects)
+      (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 4000))
+    nil))
