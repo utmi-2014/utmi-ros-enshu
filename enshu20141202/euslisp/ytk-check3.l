@@ -15,35 +15,53 @@
   (dxl-armed-turtlebot-init)
   ;; reset pose
   (send *dxl-armed-turtlebot* :reset-pose)
-  (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 5000)
+  (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 4000)
   (send *ri* :wait-interpolation))
 
+;; initialize step_x, y, z
 (setq step 10)
-(setq x 0)
-(setq y 0)
-(setq z 0)
+(setq mode 0)
 (defun joy-cb (msg)
   (let (ll)
+    ;; initialize goal-endcoords
     (setq goal-endcoords
           (make-cascoords :pos (send (send *dxl-armed-turtlebot* :arm :end-coords :copy-worldcoords) :worldpos)))
-
-    ;; HERE >>
-    ;; Update step_x, step_y, step_z
-    (format t "axis: ~a~%" (send msg :axes))
-    (format t "button: ~a~%" (send msg :buttons))
-    ;; << HERE
-
-    (send goal-endcoords
-          :locate (float-vector step_x step_y step_z))
-    ;; move robot
-    (send *dxl-armed-turtlebot*
-          :inverse-kinematics goal-endcoords
-          :rotation-axis nil
-          :debug-view nil
-          :link-list ll)
-    (send *ri* :wait-interpolation)))
+    (setq x 0)
+    (setq y 0)
+    (setq z 0)
+    ;; joy stick input
+    ; (format t "axis: ~a~%" (send msg :axes))
+    ; (format t "button: ~a~%" (send msg :buttons))
+    (if (= (elt (send msg :buttons) 11) 1)
+      (cond ((<  0.8 (elt (send msg :axes) 0)) (setq y 1))
+            ((> -0.8 (elt (send msg :axes) 0)) (setq y -1))
+            ((<  0.8 (elt (send msg :axes) 1)) (setq x 1))
+            ((> -0.8 (elt (send msg :axes) 1)) (setq x -1))
+            ((<  0.8 (elt (send msg :axes) 3)) (setq z 1))
+            ((> -0.8 (elt (send msg :axes) 3)) (setq z -1))
+            (t nil)))
+    (format t "x,y,z: ~a~a~a~%" x y z)
+    (if (not (and (= x 0) (= y 0) (= z 0)))
+      (progn
+        ;; update goal-endcoords
+        (send goal-endcoords
+              :locate (float-vector (* step x) (* step y) (* step z)))
+        ;; move robot
+        (send *dxl-armed-turtlebot*
+              :inverse-kinematics goal-endcoords
+              :rotation-axis nil
+              :debug-view nil
+              :link-list ll)
+        (send *irtviewer* :objects (list *dxl-armed-turtlebot* goal-endcoords))
+        (send *irtviewer* :draw-objects)
+        (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 500)))))
 
 (init-robot)
 (ros::subscribe "/joy" sensor_msgs::Joy #'joy-cb)
 
-(ros::spin)
+(do-until-key
+  (setq x 0)
+  (setq y 0)
+  (setq z 0)
+  (ros::spin-once)
+  )
