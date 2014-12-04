@@ -23,12 +23,12 @@ class DetectFace:
         file_bytes = np.array(byte_array)
         image = cv2.imdecode(file_bytes, cv2.CV_LOAD_IMAGE_UNCHANGED)
 
-        #cascade_path = "/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml"
+        # cascade_path = "/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml"
         cascade_path = "/usr/share/opencv/haarcascades/haarcascade_frontalface_alt.xml"
-        #cascade_path = "/usr/share/opencv/haarcascades/haarcascade_frontalface_alt2.xml"
-        #cascade_path = "/usr/share/opencv/haarcascades/haarcascade_frontalface_alt_tree.xml"
+        # cascade_path = "/usr/share/opencv/haarcascades/haarcascade_frontalface_alt2.xml"
+        # cascade_path = "/usr/share/opencv/haarcascades/haarcascade_frontalface_alt_tree.xml"
 
-        color = (255, 255, 255) #白
+        # color = (255, 255, 255) #白
 
         #グレースケール変換
         #image_gray = cv2.cvtColor(image, cv2.cv.CV_BGR2GRAY)
@@ -39,26 +39,29 @@ class DetectFace:
         #facerect = cascade.detectMultiScale(image, scaleFactor=1.1, minNeighbors=1, minSize=(1, 1))
         facerect = cascade.detectMultiScale(image, scaleFactor=1.1, minNeighbors=3, minSize=(10, 10), flags = cv2.cv.CV_HAAR_SCALE_IMAGE)
 
-        print facerect
+        # print facerect
 
         if len(facerect) <= 0:
             self.detected = False
             return
 
-        #検出した顔を囲む矩形の作成
-        for rect in facerect:
-            cv2.rectangle(image, tuple(rect[0:2]),tuple(rect[0:2]+rect[2:4]), color, thickness=2)
+        # 検出した顔を囲む矩形の作成
+        # for rect in facerect:
+        #     cv2.rectangle(image, tuple(rect[0:2]),tuple(rect[0:2]+rect[2:4]), color, thickness=2)
 
-        #認識結果の保存
-        #cv2.imwrite("./test.jpeg",image)
-        print "face detected!"
+        # 認識結果の保存
+        # cv2.imwrite("./test.jpeg",image)
+        # print "face detected!"
         self.detected = True
+
 
 def main():
     detect_face = DetectFace()
+
     while not rospy.is_shutdown():
         detect_face.pub.publish(Bool(detect_face.detected))
         rospy.sleep(1.)
+
 
 if __name__ == '__main__':
     main()
