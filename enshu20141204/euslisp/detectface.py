@@ -60,8 +60,8 @@ class DetectFace:
 def main():
     detect_face = DetectFace()
         while not rospy.is_shutdown():
-            ish(Bool(detect_face.detected))
-                rospy.sleep(1.)
+            detect_face.pub.publish(Bool(detect_face.detected))
+            rospy.sleep(1.)
 
 
 if __name__ == '__main__':
