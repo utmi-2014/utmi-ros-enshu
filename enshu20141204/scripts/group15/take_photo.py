@@ -14,7 +14,8 @@ class TakePhoto(object):
     def __init__(self):
         self.frame = None
         rospy.init_node('take_photo')
-        rospy.Subscriber('/camera/rgb/image_color/compressed', CompressedImage, self.get_frame)
+        # rospy.Subscriber('/camera/rgb/image_color/compressed', CompressedImage, self.get_frame)
+        rospy.Subscriber('/image_color/compressed', CompressedImage, self.get_frame)
         rospy.Subscriber('/enshu/take_photo', Empty, self.save_frame)
 
     def get_frame(self, data):

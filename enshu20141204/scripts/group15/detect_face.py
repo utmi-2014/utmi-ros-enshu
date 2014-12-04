@@ -15,7 +15,8 @@ class DetectFace:
     def __init__(self):
         rospy.init_node('listener', anonymous=True)
         self.pub = rospy.Publisher('/enshu/detect_face', Bool)
-        rospy.Subscriber('/camera/rgb/image_raw/compressed', CompressedImage, self.callback)
+        # rospy.Subscriber('/camera/rgb/image_raw/compressed', CompressedImage, self.callback)
+        rospy.Subscriber('/image_raw/compressed', CompressedImage, self.callback)
         self.detected = False
 
     def callback(self, data):
