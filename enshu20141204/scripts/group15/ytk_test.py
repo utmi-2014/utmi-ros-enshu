@@ -66,6 +66,9 @@ class YtkDemo(object):
         cmd = 'echo "{0}" | mutt -s "{1}" -a {2} -- {3}'
         cmd = cmd.format(body, subject, attachment, self.email)
         os.system(cmd)
+        # say user to check the inbox
+        self.pub_speak_robot.publish(String('メールを送りました。・・受信箱を確認してください。'))
+        rospy.sleep(7)
 
 
 if __name__ == '__main__':
