@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 # speak_robot.py
+# author: Kentaro Wada <www.kentaro.wada@gmail.com>
+
 import os
 
 import rospy

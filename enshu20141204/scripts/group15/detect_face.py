@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# detect_face.py
 import rospy
 
 from std_msgs.msg import Bool

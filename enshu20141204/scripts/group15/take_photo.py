@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# author: Kentaro Wada <www.kentaro.wada@gmail.com>
+
 import rospy
 from sensor_msgs.msg import CompressedImage
 from std_msgs.msg import Empty
@@ -10,7 +13,7 @@ import numpy as np
 class TakePhoto(object):
     def __init__(self):
         self.frame = None
-        rospy.init_node('take_photo', anonymous=True)
+        rospy.init_node('take_photo')
         rospy.Subscriber('/camera/rgb/image_color/compressed', CompressedImage, self.get_frame)
         rospy.Subscriber('/enshu/take_photo', Empty, self.save_frame)
 
@@ -22,7 +25,7 @@ class TakePhoto(object):
 
     def save_frame(self, data):
         print "... saving photo"
-        cv2.imwrite('take_photo.jpeg', self.frame)
+        cv2.imwrite('/tmp/ytk_take_photo.jpeg', self.frame)
 
 
 def main():

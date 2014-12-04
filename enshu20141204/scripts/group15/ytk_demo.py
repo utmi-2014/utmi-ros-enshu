@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 # ytk_demo.py
+# author: Kentaro Wada <www.kentaro.wada@gmail.com>
 
 import rospy
 
@@ -37,19 +38,44 @@ class YtkDemo(object):
                 rospy.sleep(2)
                 # firstly after found man 5 times say hello
                 self.pub_speak_robot.publish(String('こんにちは。'))
-                rospy.sleep(4)
+                rospy.sleep(3)
                 # invite the man to be taken photo
                 self.pub_speak_robot.publish(String('写真を撮りませんか？'))
+                rospy.sleep(3)
+                self.pub_speak_robot.publish(String('三'))
+                rospy.sleep(1)
+                self.pub_speak_robot.publish(String('二'))
+                rospy.sleep(1)
+                self.pub_speak_robot.publish(String('一'))
+                rospy.sleep(1)
+                self.pub_speak_robot.publish(String('カシャッ！'))
+                rospy.sleep(2)
+                self.pub_speak_robot.publish(String('写真を撮りました。'
+                                                    'メールで送ることができますので、'
+                                                    'メールアドレスを打ち込んでください。'))
+                rospy.sleep(11)
+                email = raw_input()
+
+            self.start_demo = False
 
     def test(self):
-        rospy.sleep(4)
+        rospy.sleep(2)
         self.pub_speak_robot.publish(String('こんにちは。'))
-        rospy.sleep(4)
+        rospy.sleep(3)
         self.pub_speak_robot.publish(String('写真を撮りませんか？'))
+        rospy.sleep(3)
+        self.pub_speak_robot.publish(String('三・・二・・一'))
+        rospy.sleep(4)
+        self.pub_speak_robot.publish(String('カシャッ！'))
+        rospy.sleep(2)
+        self.pub_speak_robot.publish(String('写真を撮りました。・・'
+                                            'メールで送ることができますので、・・'
+                                            'メールアドレスを打ち込んでください。'))
+        rospy.sleep(11)
 
 
 if __name__ == '__main__':
-    rospy.sleep(15)
+    rospy.sleep(20)
     ytk_demo = YtkDemo()
     # ytk_demo.main()
     ytk_demo.test()
