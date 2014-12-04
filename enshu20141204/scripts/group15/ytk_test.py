@@ -70,5 +70,4 @@ class YtkDemo(object):
 
 if __name__ == '__main__':
     ytk_demo = YtkDemo()
-    # ytk_demo.main()
     ytk_demo.test()

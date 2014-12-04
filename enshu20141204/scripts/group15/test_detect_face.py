@@ -15,7 +15,7 @@ class DetectFace:
     def __init__(self):
         rospy.init_node('detect_face')
         self.pub = rospy.Publisher('/enshu/detect_face', Bool)
-        rospy.Subscriber('/camera/rgb/image_raw/compressed', CompressedImage, self.callback)
+        rospy.Subscriber('/image_raw/compressed', CompressedImage, self.callback)
         # rospy.Subscriber('/image_raw/compressed', CompressedImage, self.callback)
         self.detected = False
 
@@ -44,6 +44,9 @@ class DetectFace:
 
         print facerect
 
+        # 認識結果の保存
+        cv2.imwrite("/tmp/test_detect_face.jpeg", image)
+
         if len(facerect) <= 0:
             self.detected = False
             return
@@ -52,8 +55,6 @@ class DetectFace:
         # for rect in facerect:
         #     cv2.rectangle(image, tuple(rect[0:2]),tuple(rect[0:2]+rect[2:4]), color, thickness=2)
 
-        # 認識結果の保存
-        cv2.imwrite("/tmp/test_detect_face.jpeg", image)
         print "face detected!"
         self.detected = True
 
