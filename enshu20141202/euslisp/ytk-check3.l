@@ -19,7 +19,7 @@
   (send *ri* :wait-interpolation))
 
 ;; initialize step_x, y, z
-(setq step 0.5)
+(setq step 1)
 (setq x 0)
 (setq y 0)
 (setq z 0)
@@ -38,6 +38,7 @@
             ((> -0.8 (elt (send msg :axes) 3)) (setq z -1))
             (t (progn (setq x 0) (setq y 0) (setq z 0)))))
     ; grasp
+    (print (send msg :buttons))
     (cond ((= (elt (send msg :buttons) 13) 1) (send *ri* :start-grasp))
           ((= (elt (send msg :buttons) 14) 1) (send *ri* :stop-grasp))
           (t nil))
@@ -66,6 +67,8 @@
             :debug-view nil
             :link-list nil)
       (send *irtviewer* :objects (list *dxl-armed-turtlebot* goal-endcoords))
+      ; (send *ri* :wait-interpolation)
       (send *irtviewer* :draw-objects)
-      (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 4000))
+      (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 2000))
+      (unix::sleep 1)
     nil))
