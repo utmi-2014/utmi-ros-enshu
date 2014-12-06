@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find roseus_tutorials)/launch/usb-camera.launch" />
+
+  <node pkg="enshu20141204" type="speak_robot.py" name="speak_robot"></node>
+  <node pkg="enshu20141204" type="test_detect_face.py" name="detect_face"></node>
+  <node pkg="enshu20141204" type="ytk_test.py" name="ytk_test"></node>
+  <node pkg="enshu20141204" type="test_take_photo.py" name="take_photo"></node>
+</launch>

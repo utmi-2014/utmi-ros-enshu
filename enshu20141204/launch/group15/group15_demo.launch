@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch"></include>
+  <!-- <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"></include> -->
+  <node pkg="enshu20141204" type="speak_robot.py" name="speak_robot"></node>
+  <node pkg="enshu20141204" type="detect_face.py" name="detect_face"></node>
+  <node pkg="enshu20141204" type="ytk_demo.py" name="ytk_demo"></node>
+  <node pkg="enshu20141204" type="take_photo.py" name="take_photo"></node>
+</launch>
