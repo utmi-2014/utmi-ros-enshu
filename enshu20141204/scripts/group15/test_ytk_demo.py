@@ -90,14 +90,13 @@ class YtkDemo(object):
                 self.pub_speak_robot.publish(String('お茶でもどうですか？'))
                 rospy.sleep(7)
                 self.pub_catch_drink.publish()
-                rospy.sleep(25)
 
         self.start_demo = False
 
 
 if __name__ == '__main__':
     ytk_demo = YtkDemo()
-    ytk_demo.is_test = False
+    ytk_demo.is_test = True
 
     while True:
         ytk_demo.main()
