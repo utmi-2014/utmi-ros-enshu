@@ -20,6 +20,7 @@ class YtkDemo(object):
         # publishers
         self.pub_speak_robot = rospy.Publisher('/enshu/speak_robot', String)
         self.pub_take_photo = rospy.Publisher('/enshu/take_photo', Empty)
+        self.pub_catch_drink = rospy.Publisher('/enshu/catch_drink', Empty)
         # subscribers
         rospy.Subscriber('/enshu/detect_face', Bool, self.cb_detect_face)
         rospy.Subscriber('/enshu/get_cmdline_input', String, self.cb_get_cmdline_input)
@@ -69,6 +70,11 @@ class YtkDemo(object):
         # say user to check the inbox
         self.pub_speak_robot.publish(String('メールを送りました。・・受信箱を確認してください。'))
         rospy.sleep(7)
+
+        # pass drink
+        self.pub_speak_robot.publish(String('お茶でもどうですか？'))
+        rospy.sleep(7)
+        self.pub_catch_drink.publish()
 
 
 if __name__ == '__main__':
