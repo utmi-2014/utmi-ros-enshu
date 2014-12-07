@@ -58,6 +58,10 @@ class YtkDemo(object):
                 # invite the man to be taken photo
                 self.pub_speak_robot.publish(String('写真を撮りましょう！'))
                 rospy.sleep(4)
+                while all(self.exist_man_5frame) is not True:
+                    # wait for the man faces to the camera
+                    self.pub_speak_robot.publish(String('カメラに顔を向けてください'))
+                    rospy.sleep(2)
                 self.pub_speak_robot.publish(String('三・・二・・一'))
                 rospy.sleep(4)
                 self.pub_speak_robot.publish(String('カシャッ！'))
@@ -90,6 +94,7 @@ class YtkDemo(object):
                 self.pub_speak_robot.publish(String('お茶でもどうですか？'))
                 rospy.sleep(7)
                 self.pub_catch_drink.publish()
+                rospy.sleep(25)
 
         self.start_demo = False
 
