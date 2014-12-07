@@ -1,12 +1,12 @@
 #!/usr/bin/env roseus
 ;; 15班 (Tennin Yan, Tomoya Yoshizawa, Kentaro Wada)
+;; author: Tomoya Yoshizawa
 
 (load "package://dxl_armed_turtlebot/euslisp/dxl-armed-turtlebot-interface.l")
 
 (ros::load-ros-manifest "roseus")
-;;(ros::load-ros-manifest "sensor_msgs")
 
-(ros::roseus "check3")
+(ros::roseus "catch-drink")
 (ros::rate 100)
 
 (defun init-robot ()
@@ -19,7 +19,7 @@
       (unix::sleep 1)
     nil)
 
-(defun catch-drink ()
+(defun catch-drink (msg)
   ;; catch drink
   ;; open arm
   (send *dxl-armed-turtlebot* :gripper :arm :angle-vector #f(50))
@@ -71,7 +71,9 @@
   (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector))
   )
 
-(warn "
 (init-robot)
-(catch-drink)
-")
+(ros::subscribe "/enshu/catch_drink" std_msgs::Empty #'catch-drink)
+
+(do-until-key
+  (ros::spin-once)
+  )
