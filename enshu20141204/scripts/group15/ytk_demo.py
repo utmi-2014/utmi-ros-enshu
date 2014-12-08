@@ -40,7 +40,7 @@ class YtkDemo(object):
 
     def main(self):
         # check if man exists
-        if all(self.exist_man_5frame) is True:
+        if sum(self.exist_man_5frame) >= 3:
             self.start_demo = True
         if self.start_demo is True or self.is_test is True:
             rospy.sleep(2)

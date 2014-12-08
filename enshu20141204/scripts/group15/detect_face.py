@@ -37,20 +37,20 @@ class DetectFace:
         # color = (255, 255, 255) #白
 
         #グレースケール変換
-        image_gray = cv2.cvtColor(image, cv2.cv.CV_BGR2GRAY)
+        # image_gray = cv2.cvtColor(image, cv2.cv.CV_BGR2GRAY)
 
         #カスケード分類器の特徴量を取得する
         cascade = cv2.CascadeClassifier(cascade_path)
         # print cascade
 
         #facerect = cascade.detectMultiScale(image, scaleFactor=1.1, minNeighbors=1, minSize=(1, 1))
-        facerect = cascade.detectMultiScale(image_gray, scaleFactor=1.1, minNeighbors=3,
+        facerect = cascade.detectMultiScale(image, scaleFactor=1.1, minNeighbors=3,
                                             minSize=(10, 10), flags = cv2.cv.CV_HAAR_SCALE_IMAGE)
 
         # print facerect
 
         # 認識結果の保存
-        cv2.imwrite("/tmp/test_detect_face.jpeg", image_gray)
+        cv2.imwrite("/tmp/test_detect_face.jpeg", image)
 
         if len(facerect) <= 0:
             self.detected = False
