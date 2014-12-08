@@ -1,6 +1,8 @@
 <launch>
   <include file="$(find turtlebot_bringup)/launch/minimal.launch"></include>
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"></include>
+  <include file="$(find turtlebot_teleop)/launch/ps3_teleop.launch"></include>
+  <include file="$(find dynamixel_7dof_arm)/launch/dynamixel_7dof_arm_bringup.launch"></include>
   <node pkg="enshu20141204" type="speak_robot.py" name="speak_robot"></node>
   <node pkg="enshu20141204" type="detect_face.py" name="detect_face"></node>
   <node pkg="enshu20141204" type="ytk_demo.py" name="ytk_demo"></node>

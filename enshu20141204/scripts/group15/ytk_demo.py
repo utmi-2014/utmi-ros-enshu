@@ -40,7 +40,7 @@ class YtkDemo(object):
 
     def main(self):
         # check if man exists
-        if all(self.exist_man_5frame) is True:
+        if sum(self.exist_man_5frame) >= 3:
             self.start_demo = True
         if self.start_demo is True or self.is_test is True:
             rospy.sleep(2)
@@ -61,7 +61,7 @@ class YtkDemo(object):
                 while all(self.exist_man_5frame) is not True:
                     # wait for the man faces to the camera
                     self.pub_speak_robot.publish(String('カメラに顔を向けてください'))
-                    rospy.sleep(2)
+                    rospy.sleep(10)
                 self.pub_speak_robot.publish(String('三・・二・・一'))
                 rospy.sleep(4)
                 self.pub_speak_robot.publish(String('カシャッ！'))
@@ -103,5 +103,6 @@ if __name__ == '__main__':
     ytk_demo = YtkDemo()
     ytk_demo.is_test = False
 
+    rospy.sleep(10)
     while True:
         ytk_demo.main()
