@@ -96,6 +96,7 @@ class YtkDemo(object):
                 self.pub_catch_drink.publish()
                 rospy.sleep(96)
 
+        self.cmdline_input = ''
         self.start_demo = False
 
 

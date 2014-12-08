@@ -8,4 +8,5 @@
   <node pkg="enshu20141204" type="ytk_demo.py" name="ytk_demo"></node>
   <node pkg="enshu20141204" type="take_photo.py" name="take_photo"></node>
   <node pkg="enshu20141204" type="catch-drink.l" name="catch_drink"></node>
+  <node pkg="enshu20141204" type="move-arm-with-joy.l" name="move_arm_with_joy"></node>
 </launch>
