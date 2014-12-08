@@ -31,10 +31,10 @@
   (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 4000)
   (unix::sleep 1)
   ;; move arm near
-  (send *dxl-armed-turtlebot* :angle-vector #f(0 150 -90 -180 90 -30 0))
+  (send *dxl-armed-turtlebot* :angle-vector #f(0 150 -90 -180 90 -30 90))
   (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 4000)
   ;; start grasp
-  (send *ri* :start-grasp)
+  ; (send *ri* :start-grasp)
   ;;(send *ri* :stop-grasp)
   ;; return init pos
   (send *dxl-armed-turtlebot* :angle-vector #f(0 150 -90 -160 90 -20 0))
@@ -62,9 +62,9 @@
   (send *dxl-armed-turtlebot* :angle-vector #f(0 150 -90 -180 90 -30 0))
   (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 4000)
   (unix::sleep 1)
-  (send *ri* :stop-grasp)
+  ;;(send *ri* :stop-grasp)
   (unix::sleep 1)
-  (send *dxl-armed-turtlebot* :angle-vector #f(0 150 -45 -160 90 -20 0) 4000)
+  (send *dxl-armed-turtlebot* :angle-vector #f(0 150 -45 -160 90 -20 90) 4000)
   (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector))
   (unix::sleep 1)
   (send *dxl-armed-turtlebot* :angle-vector #f(0 0 0 0 0 0 0))
