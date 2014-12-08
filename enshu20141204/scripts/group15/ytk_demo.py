@@ -79,7 +79,7 @@ class YtkDemo(object):
                 os.system(cmd)
                 # send mail
                 body = ('上手く撮れていますか？\nまた, 私のプログラムはここにありますので、見てみてください。\n'
-                        'https://github.com/wkentaro/utmech-ros-enshu/enshu20141204/scripts/group15/ytk_demo.py\n')
+                        'https://github.com/wkentaro/utmech-ros-enshu/blob/master/enshu20141204/scripts/group15/ytk_demo.py\n')
                 subject = 'ytk_demo.py: Take Photo'
                 attachment = '/tmp/ytk_take_photo.jpeg'
                 cmd = 'echo "{0}" | mutt -s "{1}" -a {2} -- {3}'
