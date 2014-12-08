@@ -94,8 +94,9 @@ class YtkDemo(object):
                 self.pub_speak_robot.publish(String('お茶でもどうですか？'))
                 rospy.sleep(7)
                 self.pub_catch_drink.publish()
-                rospy.sleep(25)
+                rospy.sleep(96)
 
+        self.cmdline_input = ''
         self.start_demo = False
 
 

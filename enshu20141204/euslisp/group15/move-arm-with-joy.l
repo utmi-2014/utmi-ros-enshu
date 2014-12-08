@@ -7,7 +7,7 @@
 (ros::load-ros-manifest "roseus")
 (ros::load-ros-manifest "sensor_msgs")
 
-(ros::roseus "check3")
+(ros::roseus "move_arm_with_joy")
 (ros::rate 100)
 
 (defun init-robot ()
