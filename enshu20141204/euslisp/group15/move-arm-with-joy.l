@@ -7,12 +7,16 @@
 (ros::load-ros-manifest "roseus")
 (ros::load-ros-manifest "sensor_msgs")
 
-(ros::roseus "check3")
+(ros::roseus "move_arm_with_joy")
 (ros::rate 100)
 
 (defun init-robot ()
   ;; init robot
   (dxl-armed-turtlebot-init)
+  (send *dxl-armed-turtlebot* :reset-pose)
+  (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 3000)
+  (send *ri* :wait-interpolation))
+(defun reset-robot ()
   ;; reset pose
   (send *dxl-armed-turtlebot* :reset-pose)
   (send *ri* :angle-vector (send *dxl-armed-turtlebot* :angle-vector) 3000)
@@ -41,6 +45,7 @@
     (print (send msg :buttons))
     (cond ((= (elt (send msg :buttons) 13) 1) (send *ri* :start-grasp))
           ((= (elt (send msg :buttons) 14) 1) (send *ri* :stop-grasp))
+          ((= (elt (send msg :buttons) 15) 1) (reset-robot))
           (t nil))
     (format t "m:x,y,z: ~a~a~a~%" x y z))
 
