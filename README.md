@@ -1,4 +1,4 @@
-utmech-ros-enshu
+utmech-ros-enshu [![Build Status](https://api.travis-ci.org/utmech-2014/utmech-ros-enshu.png)](https://travis-ci.org/utmech-2014/utmech-ros-enshu)
 ============
 
 ROS pkgs used in the class.
