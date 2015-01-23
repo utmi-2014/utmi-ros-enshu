@@ -1,4 +1,4 @@
-utmech-ros-enshu [![Build Status](https://api.travis-ci.org/utmech-2014/utmech-ros-enshu.png)](https://travis-ci.org/utmech-2014/utmech-ros-enshu)
+utmi-ros-enshu [![Build Status](https://api.travis-ci.org/utmi-2014/utmi-ros-enshu.png)](https://travis-ci.org/utmi-2014/utmi-ros-enshu)
 ============
 
 ROS pkgs used in the class.
@@ -11,7 +11,7 @@ How to use these ROS pkgs in your catkin workspace
 # clone this repo to the src directory in your catkin workspace
 $ mkdir -p ~/catkin_ws/ros-enshu/src
 $ cd ~/catkin_ws/ros-enshu/src
-$ git clone https://github.com/utmech-2014/utmech-ros-enshu.git
+$ git clone https://github.com/utmi-2014/utmi-ros-enshu.git
 
 # make it
 $ cd ..
@@ -31,10 +31,10 @@ contributeの仕方。
 * Setup the git remote target in your local workspace __like below__.
 * Change the sources in the branch and send pull requests!
 ```bash
-$ cd ~/catkin_ws/ros-enshu/src/utmech-ros-enshu
+$ cd ~/catkin_ws/ros-enshu/src/utmi-ros-enshu
 $ git branch YOUR-GITHUB-USERNAME
 $ git checkout YOUR-GITHUB-USERNAME
-$ git remote add YOUR-GITHUB-USERNAME git@github.com:YOUR-GITHUB-USERNAME/utmech-ros-enshu
+$ git remote add YOUR-GITHUB-USERNAME git@github.com:YOUR-GITHUB-USERNAME/utmi-ros-enshu
 ```
 
 Information for git & GitHub

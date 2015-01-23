@@ -51,7 +51,7 @@ class YtkDemo(object):
             self.pub_speak_robot.publish(String('何をしますか？'))
             rospy.sleep(4)
             cmd = ('gnome-terminal -e "python /home/wken/catkin_ws/enshu/src/'
-                'utmech-ros-enshu/enshu20141204/scripts/group15/get_cmdline_input.py select"')
+                'utmi-ros-enshu/enshu20141204/scripts/group15/get_cmdline_input.py select"')
             os.system(cmd)
 
             if self.cmdline_input == '1':
@@ -75,11 +75,11 @@ class YtkDemo(object):
                 rospy.sleep(13)
                 # input email
                 cmd = ('gnome-terminal -e "python /home/wken/catkin_ws/enshu/src/'
-                    'utmech-ros-enshu/enshu20141204/scripts/group15/get_cmdline_input.py email"')
+                    'utmi-ros-enshu/enshu20141204/scripts/group15/get_cmdline_input.py email"')
                 os.system(cmd)
                 # send mail
                 body = ('上手く撮れていますか？\nまた, 私のプログラムはここにありますので、見てみてください。\n'
-                        'https://github.com/wkentaro/utmech-ros-enshu/blob/master/enshu20141204/scripts/group15/ytk_demo.py\n')
+                        'https://github.com/wkentaro/utmi-ros-enshu/blob/master/enshu20141204/scripts/group15/ytk_demo.py\n')
                 subject = 'ytk_demo.py: Take Photo'
                 attachment = '/tmp/ytk_take_photo.jpeg'
                 cmd = 'echo "{0}" | mutt -s "{1}" -a {2} -- {3}'
